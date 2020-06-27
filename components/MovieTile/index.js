@@ -1,10 +1,11 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {TouchableOpacity, Text} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import {routes} from '../AppNavigator/routes';
 
-const MovieTile = () => {
+const MovieTile = props => {
   const navigation = useNavigation();
 
   const movieDetailsHandler = () => {
@@ -18,4 +19,11 @@ const MovieTile = () => {
   );
 };
 
-export default MovieTile;
+const mapStateToProps = ({movies}) => ({});
+
+const mapDispatchToProps = dispatch => ({});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MovieTile);
