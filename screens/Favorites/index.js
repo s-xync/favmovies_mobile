@@ -5,18 +5,18 @@ import {SafeAreaView, StyleSheet, FlatList, View, Text} from 'react-native';
 import MovieTile from '../../components/MovieTile';
 import ActivityIndicatorView from '../../components/ActivityIndicatorView';
 
-class NowPlaying extends Component {
+class Favorites extends Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
         <ActivityIndicatorView loading={this.props.moviesLoading}>
-          {this.props.nowPlaying.length === 0 ? (
+          {this.props.favorites.length === 0 ? (
             <View style={styles.nothingTextContainer}>
               <Text style={styles.nothingText}>Nothing to show here.</Text>
             </View>
           ) : (
             <FlatList
-              data={this.props.nowPlaying}
+              data={this.props.favorites}
               keyExtractor={item => `${item.id}`}
               renderItem={({item: movie}) => (
                 <MovieTile key={movie.id} movie={movie} />
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = ({movies}) => ({
   moviesLoading: movies.moviesLoading,
-  nowPlaying: movies.nowPlaying,
+  favorites: movies.favorites,
 });
 
 const mapDispatchToProps = dispatch => ({});
@@ -54,4 +54,4 @@ const mapDispatchToProps = dispatch => ({});
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(NowPlaying);
+)(Favorites);

@@ -1,8 +1,13 @@
-import {SET_NOW_PLAYING_MOVIES, SET_MOVIES_LOADING} from '../types';
+import {
+  SET_NOW_PLAYING_MOVIES,
+  SET_MOVIES_LOADING,
+  SET_FAVORITE_MOVIES,
+} from '../types';
 
 const initialState = {
   moviesLoading: false,
   nowPlaying: [],
+  favorites: [],
 };
 
 export default (state = initialState, action) => {
@@ -17,6 +22,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         moviesLoading: action.payload,
+      };
+    }
+    case SET_FAVORITE_MOVIES: {
+      return {
+        ...state,
+        favorites: action.payload,
       };
     }
     default: {

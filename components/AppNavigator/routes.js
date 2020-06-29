@@ -1,9 +1,9 @@
 import MoviesBottomTabNavigator from './MoviesBottomTabNavigator';
 import MovieDetails from '../../screens/MovieDetails';
 import NowPlaying from '../../screens/NowPlaying';
-import Favourites from '../../screens/Favourites';
+import Favorites from '../../screens/Favorites';
 
-export const moviesBottomTabNavigatorRoutes = ['nowPlaying', 'favourites'];
+export const moviesBottomTabNavigatorRoutes = ['nowPlaying', 'favorites'];
 export const rootStackNavigatorRoutes = ['movies', 'movieDetails'];
 
 export const routes = {
@@ -23,10 +23,10 @@ export const routes = {
     label: 'Now Playing',
     iconName: 'ios-film', // ionicons
   },
-  favourites: {
-    routeName: 'Favourites',
-    component: Favourites,
-    label: 'Favourites',
+  favorites: {
+    routeName: 'Favorites',
+    component: Favorites,
+    label: 'Favorites',
     iconName: 'ios-heart', // ionicons
   },
 };
