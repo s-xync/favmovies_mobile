@@ -7,13 +7,17 @@ import RootStackNavigator from './RootStackNavigator';
 import {
   getNowPlaying,
   setMoviesLoading,
+  readFavoriteMoviesFromStorage,
 } from '../../store/actions/moviesActions';
 
 class AppNavigator extends Component {
   async componentDidMount() {
     this.props.setMoviesLoading(true);
     // get now playing movies from tmdb api
-    await this.props.getNowPlaying();
+    await Promise.all([
+      this.props.getNowPlaying(),
+      this.props.readFavoriteMoviesFromStorage(),
+    ]);
     this.props.setMoviesLoading(false);
   }
 
@@ -31,6 +35,8 @@ const mapStateToProps = ({movies}) => ({});
 const mapDispatchToProps = dispatch => ({
   setMoviesLoading: moviesLoading => dispatch(setMoviesLoading(moviesLoading)),
   getNowPlaying: () => dispatch(getNowPlaying()),
+  readFavoriteMoviesFromStorage: () =>
+    dispatch(readFavoriteMoviesFromStorage()),
 });
 
 export default connect(

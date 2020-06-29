@@ -48,11 +48,6 @@ export const getNowPlaying = () => async dispatch => {
     type: SET_NOW_PLAYING_MOVIES,
     payload: nowPlayingMovies,
   });
-
-  // await AsyncStorage.setItem(
-  //   'now-playing-movies',
-  //   JSON.stringify(nowPlayingMovies),
-  // );
 };
 
 export const addFavoriteMovie = movieId => async (dispatch, getState) => {
@@ -80,4 +75,16 @@ export const addFavoriteMovie = movieId => async (dispatch, getState) => {
     'favorite-movies',
     JSON.stringify(newFavoriteMovies),
   );
+};
+
+export const readFavoriteMoviesFromStorage = () => async dispatch => {
+  const favoriteMoviesStorage = await AsyncStorage.getItem('favorite-movies');
+  const favoriteMovies = favoriteMoviesStorage
+    ? JSON.parse(favoriteMoviesStorage)
+    : [];
+
+  dispatch({
+    type: SET_FAVORITE_MOVIES,
+    payload: favoriteMovies,
+  });
 };
