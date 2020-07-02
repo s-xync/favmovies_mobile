@@ -5,6 +5,7 @@ import {
   SET_NOW_PLAYING_MOVIES,
   SET_MOVIES_LOADING,
   SET_FAVORITE_MOVIES,
+  SET_SELECTED_MOVIE_DETAILS,
 } from '../types';
 import constants from '../../config/constants';
 import makeApiRequest from '../../utils/makeApiRequest';
@@ -86,5 +87,30 @@ export const readFavoriteMoviesFromStorage = () => async dispatch => {
   dispatch({
     type: SET_FAVORITE_MOVIES,
     payload: favoriteMovies,
+  });
+};
+
+export const getSelectedMovieDetails = movieId => async dispatch => {
+  const movieDetailsResponse = await makeApiRequest(
+    'GET',
+    constants.tmdbMovieApi,
+    movieId,
+    false,
+    {
+      params: {
+        api_key: constants.tmdbApiKey,
+      },
+    },
+  );
+
+  if (movieDetailsResponse.error) {
+    errorAlert(movieDetailsResponse.message);
+  }
+
+  let movieDetails = movieDetailsResponse.response || {};
+
+  dispatch({
+    type: SET_SELECTED_MOVIE_DETAILS,
+    payload: movieDetails,
   });
 };

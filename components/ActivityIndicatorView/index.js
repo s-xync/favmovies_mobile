@@ -2,50 +2,62 @@ import React, {Fragment} from 'react';
 import {View, StyleSheet} from 'react-native';
 import ContentLoader, {Rect} from 'react-content-loader/native';
 
-const ActivityIndicatorView = ({loading, children}) => (
+const cardLoader = () => (
+  <ContentLoader backgroundColor="#CCC" style={{flex: 1}}>
+    {Array(5)
+      .fill(1)
+      .map((x, index) => (
+        <Fragment key={index}>
+          <Rect
+            x="5%"
+            y={`${15 + index * 215}`}
+            rx="5"
+            ry="5"
+            width="30%"
+            height="200"
+          />
+          <Rect
+            x="40%"
+            y={`${15 + index * 215}`}
+            rx="5"
+            ry="5"
+            width="50%"
+            height="20"
+          />
+          <Rect
+            x="40%"
+            y={`${50 + index * 215}`}
+            rx="5"
+            ry="5"
+            width="42%"
+            height="20"
+          />
+          <Rect
+            x="40%"
+            y={`${85 + index * 215}`}
+            rx="5"
+            ry="5"
+            width="35%"
+            height="20"
+          />
+        </Fragment>
+      ))}
+  </ContentLoader>
+);
+
+const detailsLoader = () => (
+  <ContentLoader backgroundColor="#CCC" style={{flex: 1}}>
+    <Rect x="5%" y="15" rx="5" ry="5" width="30%" height="200" />
+    <Rect x="40%" y="15" rx="5" ry="5" width="50%" height="20" />
+    <Rect x="40%" y="50" rx="5" ry="5" width="42%" height="20" />
+    <Rect x="40%" y="85" rx="5" ry="5" width="35%" height="20" />
+  </ContentLoader>
+);
+
+const ActivityIndicatorView = ({loading, children, loadingType = 'card'}) => (
   <View style={styles.container} pointerEvents={loading ? 'none' : 'auto'}>
-    {loading && (
-      <ContentLoader backgroundColor="#CCC" style={{flex: 1}}>
-        {Array(5)
-          .fill(1)
-          .map((x, index) => (
-            <Fragment key={index}>
-              <Rect
-                x="5%"
-                y={`${15 + index * 215}`}
-                rx="5"
-                ry="5"
-                width="30%"
-                height="200"
-              />
-              <Rect
-                x="40%"
-                y={`${15 + index * 215}`}
-                rx="5"
-                ry="5"
-                width="50%"
-                height="20"
-              />
-              <Rect
-                x="40%"
-                y={`${50 + index * 215}`}
-                rx="5"
-                ry="5"
-                width="42%"
-                height="20"
-              />
-              <Rect
-                x="40%"
-                y={`${85 + index * 215}`}
-                rx="5"
-                ry="5"
-                width="35%"
-                height="20"
-              />
-            </Fragment>
-          ))}
-      </ContentLoader>
-    )}
+    {loading && loadingType !== 'details' && cardLoader()}
+    {loading && loadingType === 'details' && detailsLoader()}
     {!loading && children}
   </View>
 );

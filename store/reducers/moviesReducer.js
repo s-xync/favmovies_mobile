@@ -2,12 +2,14 @@ import {
   SET_NOW_PLAYING_MOVIES,
   SET_MOVIES_LOADING,
   SET_FAVORITE_MOVIES,
+  SET_SELECTED_MOVIE_DETAILS,
 } from '../types';
 
 const initialState = {
   moviesLoading: false,
   nowPlaying: [],
   favorites: [],
+  selectedMovieDetails: {},
 };
 
 export default (state = initialState, action) => {
@@ -28,6 +30,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         favorites: action.payload,
+      };
+    }
+    case SET_SELECTED_MOVIE_DETAILS: {
+      return {
+        ...state,
+        selectedMovieDetails: {...action.payload},
       };
     }
     default: {

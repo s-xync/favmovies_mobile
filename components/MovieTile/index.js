@@ -8,15 +8,22 @@ import _ from 'lodash';
 
 import {routes} from '../AppNavigator/routes';
 import constants from '../../config/constants';
-import {addFavoriteMovie} from '../../store/actions/moviesActions';
+import {
+  addFavoriteMovie,
+  setMoviesLoading,
+  getSelectedMovieDetails,
+} from '../../store/actions/moviesActions';
 
 const MovieTile = props => {
   const {movie, favorites} = props;
 
   const navigation = useNavigation();
 
-  const movieDetailsHandler = () => {
+  const movieDetailsHandler = async () => {
+    props.setMoviesLoading(true);
     navigation.navigate(routes.movieDetails.routeName);
+    await props.getSelectedMovieDetails(movie.id);
+    props.setMoviesLoading(false);
   };
 
   const favoriteMovie = _.find(favorites, m => m.id === movie.id);
@@ -112,6 +119,9 @@ const mapStateToProps = ({movies}) => ({
 
 const mapDispatchToProps = dispatch => ({
   addFavoriteMovie: movieId => dispatch(addFavoriteMovie(movieId)),
+  setMoviesLoading: moviesLoading => dispatch(setMoviesLoading(moviesLoading)),
+  getSelectedMovieDetails: movieId =>
+    dispatch(getSelectedMovieDetails(movieId)),
 });
 
 export default connect(
