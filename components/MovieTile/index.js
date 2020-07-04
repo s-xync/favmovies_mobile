@@ -29,67 +29,85 @@ const MovieTile = props => {
   const favoriteMovie = _.find(favorites, m => m.id === movie.id);
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.favoriteButton}
-        onPress={() => props.addFavoriteMovie(movie.id)}>
-        {favoriteMovie ? (
-          <MaterialIcons name="favorite" color="red" size={30} />
-        ) : (
-          <MaterialIcons name="favorite-border" color="red" size={30} />
-        )}
-      </TouchableOpacity>
+    <View style={styles.containerShadow}>
+      <View style={styles.container}>
+        <TouchableOpacity
+          style={styles.favoriteButton}
+          onPress={() => props.addFavoriteMovie(movie.id)}>
+          {favoriteMovie ? (
+            <MaterialIcons name="favorite" color="red" size={30} />
+          ) : (
+            <MaterialIcons name="favorite-border" color="red" size={30} />
+          )}
+        </TouchableOpacity>
 
-      <TouchableOpacity style={styles.thumbnail} onPress={movieDetailsHandler}>
-        <Image
-          source={{uri: `${constants.tmdbImagesApi}${movie.poster_path}`}}
-          style={{
-            height: 180,
-          }}
-          resizeMode="contain"
-        />
-      </TouchableOpacity>
-      <View style={styles.detailsContainer}>
-        <Text
-          style={[
-            styles.textStyle,
-            {
-              fontSize: 20,
-            },
-          ]}>
-          {movie.original_title}
-        </Text>
-        <Text
-          style={[
-            styles.textStyle,
-            {
-              fontSize: 14,
-            },
-          ]}>
-          {movie.overview}
-        </Text>
+        <TouchableOpacity
+          style={styles.thumbnail}
+          onPress={movieDetailsHandler}>
+          <Image
+            source={{uri: `${constants.tmdbImagesApi}${movie.poster_path}`}}
+            style={{
+              height: 180,
+              borderRadius: 10,
+            }}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+        <View style={styles.detailsContainer}>
+          <Text
+            style={[
+              styles.textStyle,
+              {
+                fontSize: 18,
+                width: '85%',
+              },
+            ]}>
+            {movie.original_title}
+          </Text>
+          <Text
+            style={[
+              styles.textStyle,
+              {
+                fontSize: 14,
+              },
+            ]}>
+            {movie.overview}
+          </Text>
 
-        <Text
-          style={[
-            styles.textStyle,
-            {
-              fontSize: 16,
-            },
-          ]}>
-          {dayjs(movie.release_date, 'YYYY-MM-DD').format('DD MMMM YYYY')}
-        </Text>
+          <Text
+            style={[
+              styles.textStyle,
+              {
+                fontSize: 16,
+              },
+            ]}>
+            {dayjs(movie.release_date, 'YYYY-MM-DD').format('DD MMMM YYYY')}
+          </Text>
+        </View>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  containerShadow: {
+    marginVertical: 7,
+    marginHorizontal: 5,
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
+    backgroundColor: 'white',
+  },
   container: {
-    padding: 5,
-    margin: 5,
-    borderWidth: 0.3,
+    paddingVertical: 15,
+    paddingHorizontal: 5,
     borderColor: 'grey',
-    borderRadius: 10,
     flexDirection: 'row',
   },
   favoriteButton: {
