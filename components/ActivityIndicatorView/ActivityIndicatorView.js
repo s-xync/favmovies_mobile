@@ -47,7 +47,7 @@ const cardLoader = () => (
 
 const ActivityIndicatorView = ({loading, children}) => (
   <View style={styles.container} pointerEvents={loading ? 'none' : 'auto'}>
-    {cardLoader()}
+    {loading && cardLoader()}
     {!loading && children}
   </View>
 );
