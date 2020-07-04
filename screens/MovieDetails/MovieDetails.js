@@ -7,11 +7,11 @@ import {
   Text,
   Image,
   ScrollView,
-  FlatList,
 } from 'react-native';
+import ContentLoader, {Rect} from 'react-content-loader/native';
 
-import ActivityIndicatorView from '../../components/ActivityIndicatorView/ActivityIndicatorView';
 import MovieTile from '../../components/MovieTile/MovieTile';
+import CastList from '../../components/CastList/CastList';
 
 import constants from '../../config/constants';
 
@@ -28,33 +28,21 @@ class MovieDetails extends Component {
 
   castRender = (heading, castDetails) => {
     const {moviesLoading} = this.props;
-    if (moviesLoading) {
-      return null;
-    }
+
     return (
       <View style={styles.castSection}>
         <Text style={styles.castHeading}>{heading}</Text>
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={castDetails}
-          keyExtractor={item => item.credit_id}
-          renderItem={({item: castMember}) => (
-            <View style={styles.castCell}>
-              <Image
-                source={{
-                  uri: `${constants.tmdbImagesApi}${castMember.profile_path}`,
-                }}
-                style={styles.castThumbnail}
-                resizeMode="cover"
-              />
-              <Text style={{fontSize: 16}}>{castMember.name}</Text>
-              <Text style={{fontSize: 14, color: 'rgba(0,0,0,0.7)'}}>
-                {castMember.character || castMember.job}
-              </Text>
-            </View>
-          )}
-        />
+        {moviesLoading ? (
+          <ContentLoader backgroundColor="#CCC" style={{height: 200}}>
+            <Rect x="0%" y="0" rx="5" ry="5" width="30%" height="125" />
+            <Rect x="35%" y="0" rx="5" ry="5" width="30%" height="125" />
+            <Rect x="70%" y="0" rx="5" ry="5" width="30%" height="125" />
+            <Rect x="0%" y="135" rx="5" ry="5" width="100%" height="20" />
+            <Rect x="0%" y="165" rx="5" ry="5" width="100%" height="20" />
+          </ContentLoader>
+        ) : (
+          <CastList castDetails={castDetails} />
+        )}
       </View>
     );
   };
@@ -118,17 +106,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 20,
     marginRight: 10,
-  },
-  castCell: {
-    width: 125,
-    height: 200,
-    marginHorizontal: 5,
-    borderRadius: 10,
-  },
-  castThumbnail: {
-    borderRadius: 10,
-    height: '65%',
-    backgroundColor: 'rgba(77,77,77,0.2)',
   },
 });
 
