@@ -15,11 +15,14 @@ import {
 } from '../../store/actions/moviesActions';
 
 const MovieTile = props => {
-  const {movie, favorites} = props;
+  const {movie, favorites, thumbnailClick = true} = props;
 
   const navigation = useNavigation();
 
   const movieDetailsHandler = async () => {
+    if (!thumbnailClick) {
+      return;
+    }
     props.setMoviesLoading(true);
     navigation.navigate(routes.movieDetails.routeName);
     await props.getSelectedMovieDetails(movie.id);
@@ -46,11 +49,8 @@ const MovieTile = props => {
           onPress={movieDetailsHandler}>
           <Image
             source={{uri: `${constants.tmdbImagesApi}${movie.poster_path}`}}
-            style={{
-              height: 180,
-              borderRadius: 10,
-            }}
-            resizeMode="contain"
+            style={styles.thumbnailImage}
+            resizeMode="cover"
           />
         </TouchableOpacity>
         <View style={styles.detailsContainer}>
@@ -123,6 +123,11 @@ const styles = StyleSheet.create({
   thumbnail: {
     flex: 1,
     marginHorizontal: 5,
+  },
+  thumbnailImage: {
+    height: 180,
+    borderRadius: 10,
+    backgroundColor: 'rgba(77,77,77,0.2)',
   },
   detailsContainer: {
     flex: 2,
