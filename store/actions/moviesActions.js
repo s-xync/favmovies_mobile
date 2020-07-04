@@ -6,6 +6,7 @@ import {
   SET_MOVIES_LOADING,
   SET_FAVORITE_MOVIES,
   SET_SELECTED_MOVIE_DETAILS,
+  SET_CAST_AND_CREW_DETAILS,
 } from '../types';
 import constants from '../../config/constants';
 import makeApiRequest from '../../utils/makeApiRequest';
@@ -42,6 +43,7 @@ export const getNowPlaying = () => async dispatch => {
     original_title: movie.original_title,
     overview: movie.overview,
     poster_path: movie.poster_path,
+    backdrop_path: movie.backdrop_path,
     release_date: movie.release_date,
   }));
 
@@ -90,11 +92,24 @@ export const readFavoriteMoviesFromStorage = () => async dispatch => {
   });
 };
 
-export const getSelectedMovieDetails = movieId => async dispatch => {
-  const movieDetailsResponse = await makeApiRequest(
+export const getSelectedMovieDetails = movieId => async (
+  dispatch,
+  getState,
+) => {
+  const {movies} = getState();
+  const {nowPlaying} = movies;
+
+  const movieDetails = _.find(nowPlaying, m => m.id === movieId);
+
+  dispatch({
+    type: SET_SELECTED_MOVIE_DETAILS,
+    payload: movieDetails,
+  });
+
+  const movieCreditsResponse = await makeApiRequest(
     'GET',
     constants.tmdbMovieApi,
-    movieId,
+    `${movieId}/credits`,
     false,
     {
       params: {
@@ -103,14 +118,17 @@ export const getSelectedMovieDetails = movieId => async dispatch => {
     },
   );
 
-  if (movieDetailsResponse.error) {
-    errorAlert(movieDetailsResponse.message);
+  if (movieCreditsResponse.error) {
+    errorAlert(movieCreditsResponse.message);
   }
 
-  let movieDetails = movieDetailsResponse.response || {};
+  let movieCreditsDetails = movieCreditsResponse.response;
 
   dispatch({
-    type: SET_SELECTED_MOVIE_DETAILS,
-    payload: movieDetails,
+    type: SET_CAST_AND_CREW_DETAILS,
+    payload: {
+      cast: movieCreditsDetails.cast || [],
+      crew: movieCreditsDetails.crew || [],
+    },
   });
 };

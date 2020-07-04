@@ -3,6 +3,7 @@ import {
   SET_MOVIES_LOADING,
   SET_FAVORITE_MOVIES,
   SET_SELECTED_MOVIE_DETAILS,
+  SET_CAST_AND_CREW_DETAILS,
 } from '../types';
 
 const initialState = {
@@ -35,7 +36,19 @@ export default (state = initialState, action) => {
     case SET_SELECTED_MOVIE_DETAILS: {
       return {
         ...state,
-        selectedMovieDetails: {...action.payload},
+        selectedMovieDetails: {
+          ...state.selectedMovieDetails,
+          ...action.payload,
+        },
+      };
+    }
+    case SET_CAST_AND_CREW_DETAILS: {
+      return {
+        ...state,
+        selectedMovieDetails: {
+          ...state.selectedMovieDetails,
+          ...action.payload,
+        },
       };
     }
     default: {
