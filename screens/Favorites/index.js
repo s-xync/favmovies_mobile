@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {SafeAreaView, StyleSheet, FlatList, View, Text} from 'react-native';
+import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 
-import MovieTile from '../../components/MovieTile';
 import ActivityIndicatorView from '../../components/ActivityIndicatorView';
+import MovieList from '../../components/MovieList';
 import {routes} from '../../components/AppNavigator/routes';
 
 class Favorites extends Component {
@@ -22,13 +22,7 @@ class Favorites extends Component {
                 <Text style={styles.nothingText}>Nothing to show here.</Text>
               </View>
             ) : (
-              <FlatList
-                data={this.props.favorites}
-                keyExtractor={item => `${item.id}`}
-                renderItem={({item: movie}) => (
-                  <MovieTile key={movie.id} movie={movie} />
-                )}
-              />
+              <MovieList movies={this.props.favorites} />
             )}
           </GestureRecognizer>
         </ActivityIndicatorView>
