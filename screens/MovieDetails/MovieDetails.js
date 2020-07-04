@@ -10,8 +10,8 @@ import {
   FlatList,
 } from 'react-native';
 
-import ActivityIndicatorView from '../../components/ActivityIndicatorView';
-import MovieTile from '../../components/MovieTile';
+import ActivityIndicatorView from '../../components/ActivityIndicatorView/ActivityIndicatorView';
+import MovieTile from '../../components/MovieTile/MovieTile';
 
 import constants from '../../config/constants';
 

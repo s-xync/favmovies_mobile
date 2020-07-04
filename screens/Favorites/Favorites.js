@@ -3,8 +3,8 @@ import {connect} from 'react-redux';
 import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 
-import ActivityIndicatorView from '../../components/ActivityIndicatorView';
-import MovieList from '../../components/MovieList';
+import ActivityIndicatorView from '../../components/ActivityIndicatorView/ActivityIndicatorView';
+import MovieList from '../../components/MovieList/MovieList';
 import {routes} from '../../components/AppNavigator/routes';
 
 class Favorites extends Component {

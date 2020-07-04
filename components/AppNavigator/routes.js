@@ -1,7 +1,7 @@
 import MoviesBottomTabNavigator from './MoviesBottomTabNavigator';
-import MovieDetails from '../../screens/MovieDetails';
-import NowPlaying from '../../screens/NowPlaying';
-import Favorites from '../../screens/Favorites';
+import MovieDetails from '../../screens/MovieDetails/MovieDetails';
+import NowPlaying from '../../screens/NowPlaying/NowPlaying';
+import Favorites from '../../screens/Favorites/Favorites';
 
 export const moviesBottomTabNavigatorRoutes = ['nowPlaying', 'favorites'];
 export const rootStackNavigatorRoutes = ['movies', 'movieDetails'];

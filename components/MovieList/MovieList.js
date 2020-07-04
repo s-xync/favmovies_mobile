@@ -1,7 +1,7 @@
 import React from 'react';
 import {FlatList} from 'react-native';
 
-import MovieTile from '../../components/MovieTile';
+import MovieTile from '../MovieTile/MovieTile';
 
 const MovieList = ({movies}) => (
   <FlatList
